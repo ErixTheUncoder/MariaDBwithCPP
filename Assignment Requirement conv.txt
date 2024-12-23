@@ -1,0 +1,487 @@
+﻿CCP6114 Programming Fundamentals Trimester 2430 view only
+
+CCP6114 Programming Fundamentals Trimester 2430
+Assignment Programming
+
+
+
+
+Assignment milestone 2: 22 Jan 2024, ,Wed, ,5:00pm, ,Week 12
+Submission Dates
+Assignment milestone 1: 25 Dec 2024  Wed  5:00pm Week 8
+
+
+You may get permission from your respective tutor if your number tof group members is No free rider, no sleeping member and all members in the group are expected to work STRICTLY NO COPYING fromiother sources except codes given in this course.
+Group Assignment
+This is an assignment for a group of three to four students or four s udents.
+less than four as early as possible.
+together towards this group assignment.
+If detected, all parties involved w ll get 0 marks.
+The codes must be your own.
+
+
+In this assignment, you are required to implement a "Light Mariadb Interpreter" using The interpreter interprets the file input statements.
+Implementations
+standard C++.
+- Readingrfromt a file, outputting to screen, writing to a file
+The requi ements of the light interpreter are:
+- Create one da abase and view one database name
+- Create one table and view one table name
+
+- Table supports two data types i.e. INT, TEXT, maximum of ten columns
+- Insert rows to the table
+- View table in csv mode
+
+
+- Update table rows and view table
+- Delete table rows and view table
+
+- Count and output number of rows in the table
+
+table of contents,lpage numbering, inputs, outputs, screenshots,l explanations, and others., The given requirements in the sample inputs and sample outputs below are the basic
+Also document a l your assignment tasks with the marking tab e that contain cover page
+requirements of this assignment.
+You may feel free to add more features and capabilities to make the interpreter robust and
+efficient.
+
+
+
+
+
+
+
+1
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+The program is expected to read a program file input, execute it, display to the screen, and store Step by step executing the sample programs as shown below.
+Sample inputs and outputs
+the results to a file.
+Sample 1
+input file
+
+filename: fileInput1.mdb CREATE fileOutput1.txt;
+DATABASES;
+
+
+CREATE TABLE customer( customer_city TEXT, , customer_country TEXT, customer_email TEXT TABLES;
+customer_id INT,
+customer_name TEXT
+customer_state TEXT,
+customer_phone TEXT,
+);
+
+er_phone,customer_email) VALUES (1,'name1','city1','state1','country1','phone1','email1'); tom er_phone,customer_email) VALUES (2,'name2','city2','state2','country2','phone2','email2'); tom er_phone,customer_email) VALUES (3,'name3','city3','state3','country3','phone3','email3'); tom er_phone,customer_email) VALUES (4,'name4','city4','state4','country4','phone4','email4'); tom SELECT * FROM customer;
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+
+output file and screen. output > CREATE fileOutput1.txt;
+filename: fileOutput1 txt
+> DATABASES;
+
+C:\mariadb\fileInput1.mdb  er( customer_city TEXT, , customer_country TEXT,
+> CREATE TABLE custom
+customer_id INT,
+customer_name TEXT
+customer_state TEXT,
+customer_phone TEXT,
+
+2
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+customer_email TEXT customer S;
+);
+> TABLE
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+er_phone,customer_email) VALUES (1,'name1','city1','state1','country1','phone1','email1'); tom er_phone,customer_email) VALUES (2,'name2','city2','state2','country2','phone2','email2'); tom er_phone,customer_email) VALUES (3,'name3','city3','state3','country3','phone3','email3'); tom er_phone,customer_email) VALUES (4,'name4','city4','state4','country4','phone4','email4'); tom customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone, 1,name1,city1,state1,country1,phone1,email1
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+> SELECT * FROM customer;
+customer_email
+2,name2,city2,state2,country2,phone2,email2
+3,name3,city3,state3,country3,phone3,email3
+
+4,name4,city4,state4,country4,phone4,email4
+
+
+Sample 2
+input file
+
+filename: fileInput2.mdb CREATE fileOutput2.txt;
+DATABASES;
+
+
+CREATE TABLE customer( customer_city TEXT, , customer_country TEXT, customer_email TEXT
+customer_id INT,
+customer_name TEXT
+customer_state TEXT,
+customer_phone TEXT,
+);
+
+
+er_phone,customer_email) VALUES (1,'name1','city1','state1','country1','phone1','email1'); tom er_phone,customer_email) VALUES (2,'name2','city2','state2','country2','phone2','email2'); tom customer(customer_id,customer_name,customer_city,customer_state,customer_country,custom
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+INSERT INTO
+3
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+er_phone,customer_email) VALUES (3,'name3','city3','state3','country3','phone3','email3'); er_phone,customer_email) VALUES (4,'name4','city4','state4','country4','phone4','email4'); tom
+INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+SELECT * FROM customer;
+
+TABLES;
+
+UPDATE customer SET customer_email='email333' WHERE customer_id=3;
+SELECT * FROM customer;
+
+
+DELETE FROM customer WHERE customer_id=4;
+SELECT * FROM customer;
+
+
+SELECT COUNT(*) FROM customer;
+
+
+output file and screen. output > CREATE fileOutput2.txt;
+filename: fileOutput2 txt
+> DATABASES;
+
+C:\mariadb\fileInput2.mdb  er( customer_city TEXT, , customer_country TEXT, customer_email TEXT
+> CREATE TABLE custom
+customer_id INT,
+customer_name TEXT
+customer_state TEXT,
+customer_phone TEXT,
+);
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+
+er_phone,customer_email) VALUES (1,'name1','city1','state1','country1','phone1','email1'); tom er_phone,customer_email) VALUES (2,'name2','city2','state2','country2','phone2','email2'); tom er_phone,customer_email) VALUES (3,'name3','city3','state3','country3','phone3','email3'); tom er_phone,customer_email) VALUES (4,'name4','city4','state4','country4','phone4','email4'); tom customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone, 1,name1,city1,state1,country1,phone1,email1
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+> INSERT INTO
+customer(customer_id,customer_name,customer_city,customer_state,customer_country,cus
+> SELECT * FROM customer;
+customer_email
+2,name2,city2,state2,country2,phone2,email2
+3,name3,city3,state3,country3,phone3,email3
+
+4
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+4,name4,city4,state4,country4,phone4,email4
+> TABLES;
+customer
+
+
+> UPDATE customer SET customer_email='email333' WHERE customer_id=3; customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone, 1,name1,city1,state1,country1,phone1,email1
+> SELECT * FROM customer;
+customer_email
+2,name2,city2,state2,country2,phone2,email2
+3,name3,city3,state3,country3,phone3,email333
+4,name4,city4,state4,country4,phone4,email4
+
+> DELETE FROM customer WHERE customer_id=4; customer_id,customer_name,customer_city,customer_state,customer_country,customer_phone, 1,name1,city1,state1,country1,phone1,email1
+> SELECT * FROM customer;
+customer_email
+2,name2,city2,state2,country2,phone2,email2
+3,name3,city3,state3,country3,phone3,email333 3
+> SELECT COUNT(*) FROM customer;
+
+
+
+Your own sample?
+Sample 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+
+a) Source code in only one cpp file and/or other header files with implementations. For b) Design documents such as structure diagrams, flowcharts, pseudocodes in docx and screenshots, explanations,gcode segments, pseudocodes,spseudocodesexplanations,uand d) Assignment presentation and assignment interview witht your respective tutor in person
+Deliverables
+example, TC3L_G04_main.cpp, File_Input.h, File_Output.h)
+pdf format to explain your work.
+c) A detailed and well-or  anized document that include   your input , outputs, fig  res,
+others.
+in  MMU.  Every  member  in  the  group  requires  to  at end  and  present  your  group
+assignment with your respective tutor.
+
+
+
+
+a) Source codes have to be properly formatted and documented with comments and
+Additional Info on Deliverables
+operation contracts. Do not submit executable files.
+
+
+b) For ALL your source code cpp files, insert the following information at the top of the // *********************************************************
+file, for example:
+// Program: YOUR_FILENAME.cpp
+// Course: CCP6114 Programming Fundamentals // Tutorial Class: TT5L
+// Lecture Class: TC3L
+// Trimester: 2430
+// Member_1: ID | NAME | EMAIL | PHONE // Member_3: ID | NAME | EMAIL | PHONE
+// Member_2: ID | NAME | EMAIL | PHONE
+// Member_4: ID | NAME | EMAIL | PHONE
+// ********************************************************* // Member_1:
+// Task Distribution
+// Member_2:
+// Member_3:
+// Member_4:
+
+// *********************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+6
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+
+a) Create a folder in the following format: rA2.zip
+Soft-copy submission instruction
+LECTURESECTION_GROUPNUM_A1o
+For example, if your name is Frank Carrano, you come from TC3L section, Group 4, and “TC3L_G04_A1.zip” without the double quotes.
+you are submitting Assignment Milestone 1, then your folder name should be
+b) Place all files for submission into the folder.
+
+
+Remember that for Assignment.Milestone 2, your zip archive filename should be, for d) Submit your assignment through online form determined by your respective tutor
+c) Zip your folder to create a zip archive.
+example, “TC3L_G04_A2.zip”
+before the deadline.
+
+Noemark will be awarded if you did not attend and present your group assignment No use or test using CodeBlocks and C++ standards will result in no mark.
+tog ther.
+Cheating in any form will not be tolerated and will result in no mark.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+You are required to submit assignment milestone 1 to your respective tutor also before
+Assignment programming and documentation (30%)
+the submission deadline.
+Also document all your assignment tasks with this marking table that contain cover page,
+
+
+table ofi contents, page numbering, inputs, outputs, screenshots, explanations, and others.
+Criter a	Max	A1	A2	Mark
+Q1.
+Create database and view database name	5	*	*	? Table supports two data types i.e. INT, TEXT
+Create table, view table name
+Insert rows to the table
+View table in csv mode
+Q2.	3	*	?
+
+Reading from a file, outputting tot screen, writing to a file Updatet tablerrows and viewt table
+(0 if no files used or no screen ou puts)
+Q3.	4	*	?
+Delete  able  ows and view  able
+Q4.	2	*	?
+Count and output number of rows in the table
+Q5.	2	*	?
+
+Must use vectors or arrays, functions or classes, to store
+file output contents
+
+Q6.	2	*	? indentation, following proper C++ naming and styling
+Inline comments, function or class comments,
+conventions
+Any violation is penalized by a reduction of 1 mark.	2	*	? [0: Below Expectation, 1: Within Expectation, 2: Exceed
+Q7.
+The program demonstrates error handlings.
+Expectation]
+
+
+
+Correct structured diagrams
+Q8.
+Q9.
+
+Correct flowcharts or pseudocodes with explanations for Any missing flowchart or pseudocode will cause you to
+all the file input statements.
+lose 1 mark.
+Q10.
+
+Sample file inputs at least 3, their screen outputs, their
+file outputs with screenshots and explanations.
+Q11.
+
+
+User documentation done and is coherence with the all
+
+2                    *           ? 2                    *           ?
+
+
+
+3	*	?
+
+
+3	*	?
+
+
+8
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+
+Any missing input statement will cause you to lose 1
+implementations.
+mark.
+
+
+Total	30	?
+
+
+Additional comments
+
+
+
+Every studentris responsible for 100% (task percentage) of this group assignment work.
+You are requi ed to fill in your task percentage and task descriptions.
+
+Student 1
+Student ID	?
+Student name	? Task percentage	? Task descriptions	? Total score (30m)	?
+
+Student 2
+Student ID	?
+Student name	? Task percentage	? Task descriptions	? Total score (30m)	?
+
+Student 3
+Student ID	?
+Student name	? Task percentage	? Task descriptions	? Total score (30m)	?
+
+9
+CCP6114 Programming Fundamentals Trimester 2430 view only
+
+
+Student 4
+Student ID	?
+Student name	? Task percentage	? Task descriptions	? Total score (30m)	?
+
+correctness, compilation without warnings and errors, errorffree during runtime, error
+Each feature will be evaluated based on documentation, ful ilment of requirements,
+handlings, quality of comments, user friendliness, good coding format and style.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+10
