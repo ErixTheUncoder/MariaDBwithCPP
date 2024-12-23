@@ -4,8 +4,6 @@ CCP6114 Programming Fundamentals Trimester 2430
 Assignment Programming
 
 
-
-
 Assignment milestone 2: 22 Jan 2024, ,Wed, ,5:00pm, ,Week 12
 Submission Dates
 Assignment milestone 1: 25 Dec 2024  Wed  5:00pm Week 8
@@ -43,11 +41,6 @@ Also document a l your assignment tasks with the marking tab e that contain cove
 requirements of this assignment.
 You may feel free to add more features and capabilities to make the interpreter robust and
 efficient.
-
-
-
-
-
 
 
 1
@@ -215,33 +208,8 @@ Sample 3
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 5
 CCP6114 Programming Fundamentals Trimester 2430 view only
-
 
 
 a) Source code in only one cpp file and/or other header files with implementations. For b) Design documents such as structure diagrams, flowcharts, pseudocodes in docx and screenshots, explanations,gcode segments, pseudocodes,spseudocodesexplanations,uand d) Assignment presentation and assignment interview witht your respective tutor in person
@@ -252,8 +220,6 @@ c) A detailed and well-or  anized document that include   your input , outputs, 
 others.
 in  MMU.  Every  member  in  the  group  requires  to  at end  and  present  your  group
 assignment with your respective tutor.
-
-
 
 
 a) Source codes have to be properly formatted and documented with comments and
@@ -278,20 +244,8 @@ file, for example:
 
 // *********************************************************
 
-
-
-
-
-
-
-
-
-
-
-
 6
 CCP6114 Programming Fundamentals Trimester 2430 view only
-
 
 
 a) Create a folder in the following format: rA2.zip
@@ -310,31 +264,6 @@ before the deadline.
 Noemark will be awarded if you did not attend and present your group assignment No use or test using CodeBlocks and C++ standards will result in no mark.
 tog ther.
 Cheating in any form will not be tolerated and will result in no mark.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 7
@@ -393,15 +322,7 @@ Q11.
 
 User documentation done and is coherence with the all
 
-2                    *           ? 2                    *           ?
-
-
-
-3	*	?
-
-
-3	*	?
-
+[Pdf convertion txt error]
 
 8
 CCP6114 Programming Fundamentals Trimester 2430 view only
@@ -446,42 +367,6 @@ Student name	? Task percentage	? Task descriptions	? Total score (30m)	?
 correctness, compilation without warnings and errors, errorffree during runtime, error
 Each feature will be evaluated based on documentation, ful ilment of requirements,
 handlings, quality of comments, user friendliness, good coding format and style.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 10
