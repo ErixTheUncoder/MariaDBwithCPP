@@ -10,6 +10,12 @@
 int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
-    test
+    //testi
     return 0;
 }
+
+
+//Create database function
+void functionCreateDB(){
+    
+};
