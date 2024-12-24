@@ -1,0 +1,18 @@
+CREATE fileOutput1.txt;
+DATABASES;
+CREATE TABLE customer(
+    customer_id INT,
+    customer_name TEXT,
+    customer_city TEXT
+);
+INSERT INTO customer VALUES (1, 'Alice', 'New Y142ork');
+INSERT INTO customer VALUES (2, 'Bob', 'Los Ang124eles');
+INSERT INTO customer VALUES (3, 'ran1', 'Los An412geles');
+INSERT INTO customer VALUES (4, '12', 'Los Angel412es');
+INSERT INTO customer VALUES (5, 'Bo4b312', 'Los A421ngeles');
+INSERT INTO customer VALUES (6, 'Bo44b', 'Los Ang412eles');
+INSERT INTO customer VALUES (7, 'Bo123b', 'Los14 Angeles');
+INSERT INTO customer VALUES (8, 'Bo421b', '124 Angeles');
+SELECT * FROM customer;
+DELETE FROM customer WHERE customer_id=2;
+SELECT * FROM customer;
