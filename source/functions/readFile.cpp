@@ -1,75 +1,49 @@
+#include "interpreter.cpp"
 #include <iostream>
 #include <fstream>
 #include <string>
 
 using namespace std;
 
-int readFile() 
-{
-    int choice;
-    // Define the path for the input file and output file
-    string inputFilename = "/Users/erichong/Documents/Assignment/MariaDBwithCPP/source/inputOutput/fileInput1.mdb"; // Path to the input file
-    string outputFilename = "output.txt"; // Path to the output file
+int readFile(const string inputFileLoc) {
+    string inputFileName = inputFileLoc;
+    string outputFileName = "fileOutput1.txt"; // Default output file name
 
-    cin>>choice;
+    ifstream inputFile(inputFileName);
 
-    if(choice==1){
-        // Open the input file in read mode
-        ifstream infile(inputFilename);
-        if (!infile)
-        {
-            // If the file cannot be opened, display an error message
-            cout << "Error: Could not open " << inputFilename << " for reading." << endl;
-            return 1;
-        }
-
-        // Read and display the contents of the file line by line
-        cout << "Contents of " << inputFilename << ":" << endl;
-        string line;
-        while (getline(infile, line)) // Read each line from the file
-        {
-            cout << line << endl; // Print each line to the console
-        }
-
-        // Close the file after reading
-        infile.close();
-    }
-    // If the user chooses to add new data to the file
-    else if (choice == 2)
-    {
-        // Open the output file in append mode to keep old data and add new data
-        ofstream outfile(outputFilename, ios::app); // ios::app opens the file in append mode
-        if (!outfile)
-        {
-            // If the file cannot be opened, display an error message
-            cout << "Error: Could not open " << outputFilename << " for writing." << endl;
-            return 1;
-        }
-
-        // Prompt the user to enter data to append to the file
-        cout << "Enter data to append to the file (" << outputFilename << ") (type 'exit' to stop):" << endl;
-        string input;
-        while (true)
-        {
-            // Get input from the user line by line
-            getline(cin, input);
-            if (input == "exit") // If the user types 'exit', stop adding data
-            {
-                break;
-            }
-            // Append the entered data to the output file
-            outfile << input << endl;
-        }
-
-        // Close the output file after writing
-        outfile.close();
-        cout << "Data has been appended to " << outputFilename << " successfully." << endl;
-    }
-    else
-    {
-        // If the user entered an invalid choice, display an error message
-        cout << "Invalid choice. Please run the program again and choose 1 or 2." << endl;
+    if (!inputFile.is_open()) {
+        cout << "Error: Could not open file: " << inputFileName << endl;
+        return 1;
     }
 
-    return 0;
+    createDatabase("default_db"); // Create the default database
+    readFileInput(inputFileName, outputFileName); // Read and execute commands from the input file
+    exportTableToCSV("default_db", "customer", "customer.csv"); // Export the "customer" table to a CSV file
+
+    return 0; // End of the program
 }
+
+// Function to read input commands from a file
+void readFileInput(const string &inputFileName, const string &outputFileName) {
+    ifstream inputFile(inputFileName);
+    ofstream outputFile(outputFileName);
+
+    if (!inputFile.is_open() || !outputFile.is_open()) return;
+
+    string commandBuffer;
+    string line;
+    while (getline(inputFile, line)) {
+        line = trim(line);
+        if (!line.empty()) {
+            commandBuffer += line;
+            if (line.back() == ';') {
+                outputFile << ">" << commandBuffer << endl;
+                processCommand(commandBuffer, outputFile);
+                commandBuffer.clear();
+            }
+        }
+    }
+    inputFile.close();
+    outputFile.close();
+}
+

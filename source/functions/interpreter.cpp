@@ -9,20 +9,20 @@
 
 using namespace std;
 
-// Structure to define a column with its name and type
+//define a column with name and type
 struct Column {
     string name;
     string type;
 };
 
-// Structure to define a table with columns and rows
+//define table with columns and rows
 struct Table {
     string name;
     vector<Column> columns;
     vector<vector<string>> rows;
 };
 
-// Structure to define a database containing multiple tables
+//define database
 struct Database {
     unordered_map<string, Table> tables;
 };
@@ -69,24 +69,6 @@ string stripQuotes(const string &val, bool &isInteger) {
 // Global map to store all databases
 unordered_map<string, Database> databases;
 
-
-int interpreter() {
-    string inputFileName = "../source/inputOutput/fileInput1.mdb";
-    string outputFileName = "fileOutput1.txt"; // Default output file name
-
-    ifstream inputFile(inputFileName);
-
-    if (!inputFile.is_open()) {
-        cout << "Error: Could not open file: " << inputFileName << endl;
-        return 1;
-    }
-
-    createDatabase("default_db"); // Create the default database
-    readFileInput(inputFileName, outputFileName); // Read and execute commands from the input file
-    exportTableToCSV("default_db", "customer", "customer.csv"); // Export the "customer" table to a CSV file
-
-    return 0; // End of the program
-}
 
 // Function to trim leading and trailing whitespace from a string
 string trim(const string &str) {
@@ -351,29 +333,4 @@ void processCommand(const string &command, ofstream &outputFile) {
 
         deleteFromTable("default_db", trim(tableName), conditionCol, conditionVal);
     }
-}
-
-
-// Function to read input commands from a file
-void readFileInput(const string &inputFileName, const string &outputFileName) {
-    ifstream inputFile(inputFileName);
-    ofstream outputFile(outputFileName);
-
-    if (!inputFile.is_open() || !outputFile.is_open()) return;
-
-    string commandBuffer;
-    string line;
-    while (getline(inputFile, line)) {
-        line = trim(line);
-        if (!line.empty()) {
-            commandBuffer += line;
-            if (line.back() == ';') {
-                outputFile << ">" << commandBuffer << endl;
-                processCommand(commandBuffer, outputFile);
-                commandBuffer.clear();
-            }
-        }
-    }
-    inputFile.close();
-    outputFile.close();
 }

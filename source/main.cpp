@@ -7,10 +7,10 @@
 
 #include <iostream>
 #include "functions/readFile.cpp" //link the readFile.cpp to main.cpp
-#include "functions/interpreter.cpp" // 
 
 using namespace std;
 
 int main() {
-    interpreter();
+    string inputFile = "../source/inputOutput/fileInput1.mdb";
+    readFile(inputFile);
 }
