@@ -9,7 +9,37 @@
 
 using namespace std;
 
-// Updated version of the stripQuotes function to handle integer and string values
+// Structure to define a column with its name and type
+struct Column {
+    string name;
+    string type;
+};
+
+// Structure to define a table with columns and rows
+struct Table {
+    string name;
+    vector<Column> columns;
+    vector<vector<string>> rows;
+};
+
+// Structure to define a database containing multiple tables
+struct Database {
+    unordered_map<string, Table> tables;
+};
+
+// Function declarations
+void createDatabase(const string &dbName);
+void createTable(const string &dbName, const string &tableName, const vector<Column> &columns);
+void insertIntoTable(const string &dbName, const string &tableName, const vector<string> &values);
+void displayTable(const string &dbName, const string &tableName, ofstream &outputFile);
+void deleteFromTable(const string &dbName, const string &tableName, const string &conditionCol, const string &conditionVal);
+void exportTableToCSV(const string &dbName, const string &tableName, const string &csvFileName);
+void processCommand(const string &command, ofstream &outputFile);
+void readFileInput(const string &inputFileName, const string &outputFileName);
+string trim(const string &str);
+
+
+//Function to handle integer and string values
 string stripQuotes(const string &val, bool &isInteger) {
     string result = val;
     isInteger = false;
@@ -36,48 +66,16 @@ string stripQuotes(const string &val, bool &isInteger) {
     return result.substr(first, last - first + 1);
 }
 
-
-// Structure to define a column with its name and type
-struct Column {
-    string name;
-    string type;
-};
-
-// Structure to define a table with columns and rows
-struct Table {
-    string name;
-    vector<Column> columns;
-    vector<vector<string>> rows;
-};
-
-// Structure to define a database containing multiple tables
-struct Database {
-    unordered_map<string, Table> tables;
-};
-
 // Global map to store all databases
 unordered_map<string, Database> databases;
 
-// Function declarations
-void createDatabase(const string &dbName);
-void createTable(const string &dbName, const string &tableName, const vector<Column> &columns);
-void insertIntoTable(const string &dbName, const string &tableName, const vector<string> &values);
-void displayTable(const string &dbName, const string &tableName, ofstream &outputFile);
-void deleteFromTable(const string &dbName, const string &tableName, const string &conditionCol, const string &conditionVal);
-void exportTableToCSV(const string &dbName, const string &tableName, const string &csvFileName);
-void processCommand(const string &command, ofstream &outputFile);
-void readFileInput(const string &inputFileName, const string &outputFileName);
-string trim(const string &str);
 
 int interpreter() {
-    string inputFileName;
+    string inputFileName = "../source/inputOutput/fileInput1.mdb";
     string outputFileName = "fileOutput1.txt"; // Default output file name
 
-    // Prompt the user to enter the input file path
-    cout << "Enter the path of the input file: ";
-    getline(cin, inputFileName);
-
     ifstream inputFile(inputFileName);
+
     if (!inputFile.is_open()) {
         cout << "Error: Could not open file: " << inputFileName << endl;
         return 1;
@@ -112,7 +110,7 @@ void printRow(const vector<string>& row) {
     cout << endl;
 }
 
-// Updated function to handle different data types in conditions
+// To handle different data types in conditions
 void updateTable(const string &dbName, const string &tableName, const string &conditionCol, const string &conditionVal, const string &updateCol, const string &updateVal) {
     if (databases.find(dbName) == databases.end()) return;
     if (databases[dbName].tables.find(tableName) == databases[dbName].tables.end()) return;
@@ -370,7 +368,7 @@ void readFileInput(const string &inputFileName, const string &outputFileName) {
         if (!line.empty()) {
             commandBuffer += line;
             if (line.back() == ';') {
-                outputFile << "Executing: " << commandBuffer << endl;
+                outputFile << ">" << commandBuffer << endl;
                 processCommand(commandBuffer, outputFile);
                 commandBuffer.clear();
             }

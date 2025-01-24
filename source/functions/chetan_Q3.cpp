@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 void updateTable(const string &databaseName, const string &tblName, const string &condColumn, const string &condValue, const string &updColumn, const string &updValue) {
     // Check if the database exists
     if (databases.find(databaseName) == databases.end()) {

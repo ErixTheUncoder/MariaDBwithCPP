@@ -6,15 +6,11 @@
 //
 
 #include <iostream>
-#include "readFile.cpp" //link the readFile.cpp to main.cpp
-#include "interpreter.cpp" // 
+#include "functions/readFile.cpp" //link the readFile.cpp to main.cpp
+#include "functions/interpreter.cpp" // 
 
 using namespace std;
 
-
 int main() {
-    cout << "Hello, World!\n";
     interpreter();
-
-    return 0;
 }
