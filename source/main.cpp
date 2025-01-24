@@ -6,9 +6,15 @@
 //
 
 #include <iostream>
+#include "readFile.cpp" //link the readFile.cpp to main.cpp
+#include "interpreter.cpp" // 
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+using namespace std;
+
+
+int main() {
+    cout << "Hello, World!\n";
+    interpreter();
+
     return 0;
 }

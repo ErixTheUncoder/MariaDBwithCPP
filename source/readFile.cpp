@@ -4,10 +4,9 @@
 
 using namespace std;
 
-int choice;
-
-int main()
+int readFile() 
 {
+    int choice;
     // Define the path for the input file and output file
     string inputFilename = "/Users/erichong/Documents/Assignment/MariaDBwithCPP/source/inputOutput/fileInput1.mdb"; // Path to the input file
     string outputFilename = "output.txt"; // Path to the output file

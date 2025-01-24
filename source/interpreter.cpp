@@ -69,7 +69,7 @@ void processCommand(const string &command, ofstream &outputFile);
 void readFileInput(const string &inputFileName, const string &outputFileName);
 string trim(const string &str);
 
-int main() {
+int interpreter() {
     string inputFileName;
     string outputFileName = "fileOutput1.txt"; // Default output file name
 
