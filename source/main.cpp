@@ -1,4 +1,19 @@
-// #include "functions/interpreter.cpp"
+//*********************************************************
+// Program: main.cpp
+// Course: CCP6114 Programming Fundamentals // Tutorial Class: TT5L
+// Lecture Class: TC3L
+// Trimester: 2430
+// Member_1: 243UC247CQ | ERIC CHIN YAN HONG | eric.chin.yan@student.mmu.edu.my | +60168262342
+// Member_2: ID | NAME | EMAIL | PHONE
+// Member_3: ID | NAME | EMAIL | PHONE
+// Member_4: ID | NAME | EMAIL | PHONE
+// ********************************************************* // Member_1:
+// Task Distribution
+// Member_1:  Integration, Create table, Table name
+// Member_2:
+// Member_3:
+// Member_4:
+// *********************************************************
 #include <iostream> // For input and output
 #include <fstream> // For file handling
 #include <sstream> // For string stream operations
