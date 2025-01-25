@@ -13,7 +13,7 @@
 // Member_1: Creating and Viewing databases and tables, CSV file implementation, Error handling and Processing the input file
 // Member_2: File reading and writing functionality, outputs to the screen and Processing the input file
 // Member_3: Table update, Desired Output Integration and Processing the input file
-// Member_4: Row Counting Feature, Created design documentation, including flowcharts, pseudocodes, comments and Processing the input file
+// Member_4: Row Count Feature, Created design documentation, including flowcharts, pseudocodes, comments and Processing the input file
 // *********************************************************
 
 #include <iostream> // For input and output
@@ -24,8 +24,8 @@
 #include <string> // For string manipulation
 #include <algorithm> // For algorithms like remove_if
 #include <cctype> // For character handling functions
-#include <cstring>  // For handling platform-specific functions, working with IOS and windows
-#include <cstdlib>  // For realpath() 
+#include <cstring>  // For handling platform-specific functions
+#include <cstdlib>  // For realpath()
 
 using namespace std;
 
@@ -520,6 +520,7 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
     } else if (trimmedCmd.find("SELECT * FROM") == 0) {
         // Handle SELECT * FROM commands
         displayTable("default_db", "customer", outputFile);
+		
     } else if (trimmedCmd.find("UPDATE") == 0) {
         // Handle UPDATE commands
         size_t setPos = trimmedCmd.find("SET");
@@ -565,7 +566,19 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
             cout << table.first << endl;
             outputFile << table.first << endl;
         }
-    } else {
+	}	else if (cmd.find("SELECT COUNT(*) FROM") == 0) {
+        // Extract table name
+        string tableName = trim(cmd.substr(cmd.find("FROM") + 5));
+
+        int rowCount = countRowsInTable("default_db", "customer");
+        if (rowCount >= 0) {
+            cout << "Number of rows in table " << "customer" << ": " << rowCount << endl;
+            outputFile << "Number of rows in table " << "customer" << ": " << rowCount << endl;
+        } else {
+            cout << "Error counting rows for table: " << tableName << endl;
+        }
+    } 	
+     else {
     }
 }
 
