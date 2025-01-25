@@ -13,7 +13,7 @@
 // Member_1: Creating and Viewing databases and tables, CSV file implementation, Error handling and Processing the input file
 // Member_2: File reading and writing functionality, outputs to the screen and Processing the input file
 // Member_3: Table update, Desired Output Integration and Processing the input file
-// Member_4: Created design documentation, including flowcharts, pseudocodes, comments and Processing the input file
+// Member_4: Row Counting Feature, Created design documentation, including flowcharts, pseudocodes, comments and Processing the input file
 // *********************************************************
 
 #include <iostream> // For input and output
@@ -24,12 +24,10 @@
 #include <string> // For string manipulation
 #include <algorithm> // For algorithms like remove_if
 #include <cctype> // For character handling functions
-#include <cstring>  // For handling platform-specific functions
-#include <cstdlib>  // For realpath()
-
+#include <cstring>  // For handling platform-specific functions, working with IOS and windows
+#include <cstdlib>  // For realpath() 
 
 using namespace std;
-
 
 #ifdef _WIN32
 #include <direct.h>  // For _fullpath on Windows
@@ -122,14 +120,11 @@ void processCommand(const string &command, ofstream &outputFile);
 void readFileInput(const string &inputFileName, string &outputFileName);
 int countRowsInTable(const string &dbName, const string &tableName);
 
-
 string trim(const string &str);
 
-
-// Main function where the program starts running.
 int main() {
     string inputFileName;
-    string outputFileName = "default.txt"; // Default output file name if no other is given.
+    string outputFileName = "default.txt";
 
     // Ask the user for the path of the input file.
     cout << "Enter the path of the input file: ";
@@ -143,26 +138,17 @@ int main() {
         return 1; // Exit the program with an error code.
     }
 
-    // Print the full path of the file
-    cout<<endl<<endl;
-    filesystem::path fuPath = filesystem::absolute(inputFileName);
-    cout<<"The path for the file is :"<<fuPath.string()<<endl<<endl;
-
     // Create a default database called "default_db".
     createDatabase("default_db");
 
     // Read the input file and update the output file name.
     readFileInput(inputFileName, outputFileName);
 
-    //Extract element name
-    Table t;
-
     // Export data from the "customer" table in "default_db" to a CSV file called "customer.csv".
-    exportTableToCSV("default_db", t.name, "customer.csv");
+    exportTableToCSV("default_db", "customer", "customer.csv");
 
     return 0; // The program finishes without errors.
 }
-
 
 // This function removes extra spaces at the beginning and end of a string.
 string trim(const string &str) {
@@ -173,7 +159,6 @@ string trim(const string &str) {
     // If there are no non-space characters, return an empty string.
     return (start == string::npos) ? "" : str.substr(start, end - start + 1);
 }
-
 
 // This function prints out a row of data, adding quotes around strings if they have special characters or spaces.
 void printRow(const vector<string>& row) {
@@ -469,17 +454,42 @@ void exportTableToCSV(const string &dbName, const string &tableName, const strin
 // - SELECT
 // - UPDATE
 // - DELETE
-void processCommand(const string &command, ofstream &outputFile) {
-    string cmd = trim(command); // Remove extra spaces
-    cout << "> " << cmd << endl; // Show the command on the screen
-    Table t;
+void processCommand(const string &cmd, string &outputFileName, ofstream &outputFile) {
+    string trimmedCmd = trim(cmd); // Remove extra spaces around the command
+    cout << "> " << trimmedCmd << endl;
 
-    if (cmd.find("CREATE TABLE") == 0) {
-        // Extract table name and columns
-        int start = cmd.find('(');
-        int end = cmd.find(')');
-        string tableName = trim(cmd.substr(13, start - 13));
-        string columnsStr = cmd.substr(start + 1, end - start - 1);
+// Switch output file if CREATE command is found with a .txt; suffix
+    if (trimmedCmd.find("CREATE ") == 0 && trimmedCmd.find(".txt;") != string::npos) {
+        size_t start = trimmedCmd.find(' ') + 1;
+        size_t end = trimmedCmd.find(';', start);
+        string newFileName = trim(trimmedCmd.substr(start, end - start));
+
+        // If the new output file is different from the current one
+        if (newFileName != outputFileName) {
+            cout << "Switching output file to: " << newFileName << endl;
+
+            // Close the current output file before opening a new one
+            outputFile.close();
+
+            // Update the output file name
+            outputFileName = newFileName;
+
+            // Open the new output file in truncate mode to ensure it starts fresh
+            outputFile.open(outputFileName, ios::out | ios::trunc);
+            if (!outputFile.is_open()) {
+                cout << "Error: Could not create new output file: " << outputFileName << endl;
+                return;
+            }
+        }
+    }
+
+    // Process the command
+    if (trimmedCmd.find("CREATE TABLE") == 0) {
+        // Handle CREATE TABLE commands
+        size_t start = trimmedCmd.find('(');
+        size_t end = trimmedCmd.find(')');
+        string tableName = trim(trimmedCmd.substr(13, start - 13));
+        string columnsStr = trimmedCmd.substr(start + 1, end - start - 1);
 
         // Parse columns
         vector<Column> columns;
@@ -493,12 +503,11 @@ void processCommand(const string &command, ofstream &outputFile) {
         }
 
         createTable("default_db", tableName, columns);
-    } 
-    else if (cmd.find("INSERT INTO") == 0) {
-        // Extract values
-        int start = cmd.find("VALUES (") + 8;
-        int end = cmd.find(')', start);
-        string valuesStr = cmd.substr(start, end - start);
+    } else if (trimmedCmd.find("INSERT INTO") == 0) {
+        // Handle INSERT INTO commands
+        size_t start = trimmedCmd.find("VALUES (") + 8;
+        size_t end = trimmedCmd.find(')', start);
+        string valuesStr = trimmedCmd.substr(start, end - start);
 
         vector<string> values;
         stringstream valStream(valuesStr);
@@ -508,17 +517,16 @@ void processCommand(const string &command, ofstream &outputFile) {
         }
 
         insertIntoTable("default_db", "customer", values);
-    } 
-    else if (cmd.find("SELECT * FROM") == 0) {
+    } else if (trimmedCmd.find("SELECT * FROM") == 0) {
+        // Handle SELECT * FROM commands
         displayTable("default_db", "customer", outputFile);
-    } 
-    else if (cmd.find("UPDATE") == 0) {
-        // Extract table name, set clause, and where clause
-        int setPos = cmd.find("SET");
-        int wherePos = cmd.find("WHERE");
-        string tableName = trim(cmd.substr(7, setPos - 7));
-        string setPart = cmd.substr(setPos + 4, wherePos - setPos - 4);
-        string wherePart = cmd.substr(wherePos + 6);
+    } else if (trimmedCmd.find("UPDATE") == 0) {
+        // Handle UPDATE commands
+        size_t setPos = trimmedCmd.find("SET");
+        size_t wherePos = trimmedCmd.find("WHERE");
+        string tableName = trim(trimmedCmd.substr(7, setPos - 7));
+        string setPart = trimmedCmd.substr(setPos + 4, wherePos - setPos - 4);
+        string wherePart = trimmedCmd.substr(wherePos + 6);
 
         string updateCol = trim(setPart.substr(0, setPart.find('=')));
         string updateVal = trim(setPart.substr(setPart.find('=') + 1));
@@ -526,63 +534,85 @@ void processCommand(const string &command, ofstream &outputFile) {
         string conditionVal = trim(wherePart.substr(wherePart.find('=') + 1));
 
         updateTable("default_db", tableName, conditionCol, conditionVal, updateCol, updateVal);
-    } 
-    else if (cmd.find("SELECT COUNT(*) FROM") == 0) {
-        // Extract table name
-        string tableName = trim(cmd.substr(cmd.find("FROM") + 5));
+    } else if (trimmedCmd.find("DELETE FROM") == 0) {
+        // Handle DELETE FROM commands
+        size_t wherePos = trimmedCmd.find("WHERE");
+        string tableName = trim(trimmedCmd.substr(12, wherePos - 12));
+        string conditionStr = trimmedCmd.substr(wherePos + 6);
 
-        int rowCount = countRowsInTable("default_db", "customer");
-        if (rowCount >= 0) {
-            cout << "Number of rows in table " << "customer" << ": " << rowCount << endl;
-            outputFile << "Number of rows in table " << "customer" << ": " << rowCount << endl;
-        } else {
-            cout << "Error counting rows for table: " << tableName << endl;
+        string conditionCol = trim(conditionStr.substr(0, conditionStr.find('=')));
+        string conditionVal = trim(conditionStr.substr(conditionStr.find('=') + 1));
+
+        deleteFromTable("default_db", tableName, conditionCol, conditionVal);
+    } else if (trimmedCmd.find("DATABASES") == 0) {
+        // Handle DATABASES command
+        cout << "Databases available: \n";
+        outputFile << "Databases available: \n";
+        for (auto &db : databases) {
+            cout << db.first << endl;
+            outputFile << db.first << endl;
         }
-    } 
-    else {
-        cout << "Unknown command: " << cmd << endl;
+    } else if (trimmedCmd.find("TABLES") == 0) {
+        // Handle TABLES command
+        string dbName = "default_db"; // Default database for now
+        if (databases.find(dbName) == databases.end()) {
+            cout << "Database not found: " << dbName << endl;
+            return;
+        }
+        cout << "Tables in " << dbName << ":\n";
+        outputFile << "Tables in " << dbName << ":\n";
+        for (auto &table : databases[dbName].tables) {
+            cout << table.first << endl;
+            outputFile << table.first << endl;
+        }
+    } else {
     }
 }
 
-void readFileInput(const string &inputFileName, string &outputFileName) {
-    // Get the full path of the input file
-    // string fullPath = getFullPath(inputFileName);
-    // if (fullPath.empty()) {
-    //     cout << "Error: Could not resolve full path for input file: " << inputFileName << endl;
-    //     return;
-    // }
-    // cout << "Input file full path: " << fullPath << endl;
 
-    // Open the input file
+void readFileInput(const string &inputFileName, string &outputFileName) {
+    string fullPath = getFullPath(inputFileName);
+    if (fullPath.empty()) {
+        cout << "Error: Could not get the full path for the input file: " << inputFileName << endl;
+        return;
+    }
+    cout << "Full path of input file: " << fullPath << endl;
+	
+	// Open the input file containing commands
     ifstream inputFile(inputFileName);
     if (!inputFile.is_open()) {
         cout << "Error: Could not open input file: " << inputFileName << endl;
         return;
     }
-
-    // Open the output file
-    ofstream outputFile(outputFileName, ios::out | ios::trunc);
+    // Open the initial output file for writing results
+    ofstream outputFile(outputFileName, ios::out | ios::trunc); // Open in truncate mode to clear existing data
     if (!outputFile.is_open()) {
         cout << "Error: Could not create output file: " << outputFileName << endl;
         return;
     }
-
-    string commandBuffer;
-    string line;
+    string commandBuffer; // Buffer to hold complete commands
+    string line; // Current line being read from the input file
 
     while (getline(inputFile, line)) {
-        line = trim(line);  // Assuming 'trim' is a defined function
+        line = trim(line); // Remove extra spaces
         if (!line.empty()) {
-            commandBuffer += line;
+            commandBuffer += line; // Accumulate command lines
+
+            // Check if the command ends with a semicolon (indicating end of the command)
             if (line.back() == ';') {
+                // Log the command execution to both the console and output file
                 cout << "Executing: " << commandBuffer << endl;
                 outputFile << "Executing: " << commandBuffer << endl;
-                processCommand(commandBuffer, outputFile);  // Assuming 'processCommand' is defined
+                // Process the command
+                processCommand(commandBuffer, outputFileName, outputFile);
+                // Clear the buffer for the next command
                 commandBuffer.clear();
             }
         }
     }
 
+    // Close both input and output files when done
     inputFile.close();
     outputFile.close();
 }
+
