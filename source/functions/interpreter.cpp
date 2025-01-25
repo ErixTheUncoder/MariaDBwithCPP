@@ -9,24 +9,6 @@
 
 using namespace std;
 
-//define a column with name and type
-struct Column {
-    string name;
-    string type;
-};
-
-//define table with columns and rows
-struct Table {
-    string name;
-    vector<Column> columns;
-    vector<vector<string>> rows;
-};
-
-//define database
-struct Database {
-    unordered_map<string, Table> tables;
-};
-
 // Function declarations
 void createDatabase(const string &dbName);
 void createTable(const string &dbName, const string &tableName, const vector<Column> &columns);

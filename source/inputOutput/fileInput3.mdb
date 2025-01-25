@@ -1,0 +1,20 @@
+CREATE myOutputerrr.txt;
+DATABASES;
+CREATE TABLE student( student_id INT, student_name TEXT, student_marks INT, student_year TEXT);
+INSERT INTO
+student(student_id,student_name,student_marks,student_year) VALUES (500,'Siow',98,'Beta');
+INSERT INTO
+student(student_id,student_name,student_marks,student_year) VALUES (501,'Aina',92,'Beta');
+INSERT INTO
+student(student_id,student_name,student_marks,student_year) VALUES (502,'Naveen',94,'Gamma');
+INSERT INTO
+student(student_id,student_name,student_marks,student_year) VALUES (503,'Vincent',87,'Beta');
+SELECT * FROM student;
+TABLES;
+TABLES;
+
+UPDATE student SET student_marks=84 WHERE student_id=501;
+SELECT * FROM student;
+DELETE FROM student WHERE student_id=503;
+SELECT * FROM student;
+SELECT COUNT(*) FROM student;
