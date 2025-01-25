@@ -15,6 +15,7 @@
 // Member_3: Table update, Desired Output Integration and Processing the input file
 // Member_4: Created design documentation, including flowcharts, pseudocodes, comments and Processing the input file
 // *********************************************************
+
 #include <iostream> // For input and output
 #include <fstream> // For file handling
 #include <sstream> // For string stream operations
@@ -23,8 +24,37 @@
 #include <string> // For string manipulation
 #include <algorithm> // For algorithms like remove_if
 #include <cctype> // For character handling functions
+#include <cstring>  // For handling platform-specific functions
+#include <cstdlib>  // For realpath()
+
 
 using namespace std;
+
+
+#ifdef _WIN32
+#include <direct.h>  // For _fullpath on Windows
+#else
+#include <unistd.h>  // For realpath on Unix-based systems
+#endif
+
+// Function to get the absolute path of a file
+string getFullPath(const string &inputFileName) {
+    char fullPath[512]; // Buffer to hold the full path
+
+#ifdef _WIN32
+    // Windows-specific code using _fullpath
+    if (_fullpath(fullPath, inputFileName.c_str(), sizeof(fullPath)) == nullptr) {
+        return "";
+    }
+#else
+    // Unix/Linux-specific code using realpath
+    if (realpath(inputFileName.c_str(), fullPath) == nullptr) {
+        return "";
+    }
+#endif
+
+    return string(fullPath);
+}
 
 // Function to strip quotes from a string and check if it represents an integer.
 // This helps standardize values for storage and comparison.
@@ -32,27 +62,32 @@ string stripQuotes(const string &val, bool &isInteger) {
     string result = val;
     isInteger = false;
 
-    // Remove surrounding single quotes if present.
-    if (result.front() == '\'' && result.back() == '\'') {
-        result = result.substr(1, result.length() - 2);
+    // Remove surrounding single quotes if present
+    if (!result.empty() && result.front() == '\'' && result.back() == '\'') {
+        result = result.substr(1, result.size() - 2);
     }
 
-    // Attempt to parse the value as an integer.
+    // Attempt to parse the value as an integer
     try {
-        stoi(result); // Convert to integer; if successful, mark as integer.
+        stoi(result);
         isInteger = true;
-    } catch (const std::invalid_argument&) {
-        isInteger = false; // If parsing fails, it is not an integer.
+    } catch (...) {
+        isInteger = false; // Not an integer if parsing fails
     }
 
-    // Trim leading and trailing whitespace.
-    size_t first = result.find_first_not_of(" \t\r\n");
-    size_t last = result.find_last_not_of(" \t\r\n");
-    if (first == string::npos || last == string::npos) {
-        return ""; // Return an empty string if only whitespace remains.
+    // Trim leading and trailing whitespace
+    int start = 0;
+    while (start < result.size() && isspace(result[start])) {
+        start++;
     }
 
-    return result.substr(first, last - first + 1);
+    int end = result.size() - 1;
+    while (end >= 0 && isspace(result[end])) {
+        end--;
+    }
+
+    // Return trimmed result or empty string if no valid characters
+    return (start <= end) ? result.substr(start, end - start + 1) : "";
 }
 
 // Structure to define a column with its name and type.
@@ -85,6 +120,9 @@ void deleteFromTable(const string &dbName, const string &tableName, const string
 void exportTableToCSV(const string &dbName, const string &tableName, const string &csvFileName);
 void processCommand(const string &command, ofstream &outputFile);
 void readFileInput(const string &inputFileName, string &outputFileName);
+int countRowsInTable(const string &dbName, const string &tableName);
+
+
 string trim(const string &str);
 
 
@@ -132,13 +170,23 @@ string trim(const string &str) {
 // This function prints out a row of data, adding quotes around strings if they have special characters or spaces.
 void printRow(const vector<string>& row) {
     // Loop through each value in the row.
-    for (size_t i = 0; i < row.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(row.size()); ++i) {
         // If it's not the first value, add a comma before printing the next value.
-        if (i != 0) cout << ","; 
+        if (i != 0) cout << ",";
 
-        // Check if the value has spaces, tabs, newlines, or commas.
-        if (row[i].find_first_of(" \t\n\r") != string::npos || row[i].find_first_of(",") != string::npos) {
-            // If so, put quotes around the value.
+        // Flag to check if special characters are found.
+        bool hasSpecialChar = false;
+
+        // Check each character in the string for special characters or spaces.
+        for (char c : row[i]) {
+            if (c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == ',') {
+                hasSpecialChar = true;
+                break;
+            }
+        }
+
+        // If special characters are found, put quotes around the value.
+        if (hasSpecialChar) {
             cout << "'" << row[i] << "'";
         } else {
             // Otherwise, just print the value without quotes.
@@ -148,77 +196,169 @@ void printRow(const vector<string>& row) {
     cout << endl; // Print a newline after the whole row.
 }
 
+void updateTable(const string &databaseName, const string &tblName, const string &condColumn, const string &condValue, const string &updColumn, const string &updValue) {
+    // Check if the database exists
+    if (databases.find(databaseName) == databases.end()) {
+        cout << "Database not found\n";
+        return;
+    }
+	
+    // Check if the table exists
+    if (databases[databaseName].tables.find(tblName) == databases[databaseName].tables.end()) {
+        cout << "Table missing\n";
+        return;
+    }
+	
+    // Get the table
+    Table &myTable = databases[databaseName].tables[tblName];
+	
+    // Find condition column index
+    int condColIndex = -1;
+    for (int x = 0; x < myTable.columns.size(); x++) {
+        if (myTable.columns[x].name == condColumn) {
+            condColIndex = x;
+            break;
+        }
+    }
+	
+    // Find update column index
+    int updColIndex = -1;
+    for (int x = 0; x < myTable.columns.size(); x++) {
+        if (myTable.columns[x].name == updColumn) {
+            updColIndex = x;
+            break;
+        }
+    }
+	
+    // If columns not found, stop
+    if (condColIndex == -1 || updColIndex == -1) {
+        cout << "Columns not found\n";
+        return;
+    }
+	
+    // Start updating rows
+    bool didUpdate = false;
+    bool condIsNum = false;
+    string condValueStr = stripQuotes(condValue, condIsNum);
 
-// This function updates rows in a table where a specific condition is met.
-// It looks for rows where a given column's value matches a condition, and if it finds one, it updates another column in that row.
-void updateTable(const string &dbName, const string &tableName, const string &conditionCol, const string &conditionVal, const string &updateCol, const string &updateVal) {
-    // First, check if the database exists. If not, exit the function.
-    if (databases.find(dbName) == databases.end()) return; // Database not found.
-    
-    // Then, check if the table exists in that database. If not, exit the function.
-    if (databases[dbName].tables.find(tableName) == databases[dbName].tables.end()) return; // Table not found.
+    for (int row = 0; row < myTable.rows.size(); row++) {
+        string rowCondVal = stripQuotes(myTable.rows[row][condColIndex], condIsNum);
 
-    // Grab the table object to work with.
-    Table &table = databases[dbName].tables[tableName];
-
-    // Find the columns for the condition and the update by their names.
-    auto conditionIt = find_if(table.columns.begin(), table.columns.end(), [&](const Column &col) {
-        return col.name == conditionCol;
-    });
-    auto updateIt = find_if(table.columns.begin(), table.columns.end(), [&](const Column &col) {
-        return col.name == updateCol;
-    });
-
-    // If either of the columns isn't found, exit the function.
-    if (conditionIt == table.columns.end() || updateIt == table.columns.end()) return; // Columns not found.
-
-    // Get the index of the columns to compare and update.
-    size_t conditionIdx = distance(table.columns.begin(), conditionIt);
-    size_t updateIdx = distance(table.columns.begin(), updateIt);
-
-    bool updated = false; // Flag to track if any row was updated.
-    bool isIntegerCondition = false; // To check if the condition involves integers.
-
-    // Remove quotes around the condition value and figure out if it's an integer.
-    string conditionValStripped = stripQuotes(conditionVal, isIntegerCondition);
-
-    // Loop through each row in the table.
-    for (auto &row : table.rows) {
-        string rowConditionVal = stripQuotes(row[conditionIdx], isIntegerCondition);
-
-        if (isIntegerCondition) {
-            // If the condition is an integer, compare the values as integers.
-            if (stoi(rowConditionVal) == stoi(conditionValStripped)) {
-                row[updateIdx] = stripQuotes(updateVal, isIntegerCondition); // Update the row.
-                updated = true;
+        if (condIsNum) {
+            if (stoi(rowCondVal) == stoi(condValueStr)) {
+                myTable.rows[row][updColIndex] = stripQuotes(updValue, condIsNum);
+                didUpdate = true;
             }
         } else {
-            // If the condition is a string, compare the values as strings.
-            if (rowConditionVal == conditionValStripped) {
-                row[updateIdx] = stripQuotes(updateVal, isIntegerCondition); // Update the row.
-                updated = true;
+            if (rowCondVal == condValueStr) {
+                myTable.rows[row][updColIndex] = stripQuotes(updValue, condIsNum);
+                didUpdate = true;
             }
         }
     }
 
-    // Print the updated table if changes were made, or show a message if no rows were updated.
-    if (updated) {
-        cout << "> Updated table after changes:" << endl;
-        for (const auto &row : table.rows) {
-            printRow(row); // Display the updated rows.
+    // Show results
+    if (didUpdate) {
+        cout << "Table updated\n";
+        for (int r = 0; r < myTable.rows.size(); r++) {
+            for (int c = 0; c < myTable.rows[r].size(); c++) {
+                cout << myTable.rows[r][c];
+                if (c != myTable.rows[r].size() - 1) cout << ", ";
+            }
+            cout << endl;
         }
     } else {
-        cout << "> No rows matched the condition for update.\n"; // No rows found for the update.
+        cout << "Nothing to update\n";
     }
 }
 
+void deleteFromTable(const string &databaseName, const string &tblName, const string &condColumn, const string &condValue) {
+    // Check if the database exists
+    if (databases.find(databaseName) == databases.end()) {
+        cout << "Database not found\n";
+        return;
+    }
+
+    // Check if the table exists
+    if (databases[databaseName].tables.find(tblName) == databases[databaseName].tables.end()) {
+        cout << "Table missing\n";
+        return;
+    }
+
+    // Get the table
+    Table &myTable = databases[databaseName].tables[tblName];
+
+    // Find condition column index
+    int condColIndex = -1;
+    for (int x = 0; x < myTable.columns.size(); x++) {
+        if (myTable.columns[x].name == condColumn) {
+            condColIndex = x;
+            break;
+        }
+    }
+
+    // If the condition column is not found, stop
+    if (condColIndex == -1) {
+        cout << "Condition column not found\n";
+        return;
+    }
+
+    // Start deleting rows
+    bool didDelete = false;
+    bool condIsNum = false;
+    string condValueStr = stripQuotes(condValue, condIsNum);
+
+    for (int r = 0; r < myTable.rows.size(); r++) {
+        string rowCondVal = stripQuotes(myTable.rows[r][condColIndex], condIsNum);
+
+        if (condIsNum) {
+            if (stoi(rowCondVal) == stoi(condValueStr)) {
+                myTable.rows.erase(myTable.rows.begin() + r);
+                r--; // Adjust index after removing a row
+                didDelete = true;
+            }
+        } else {
+            if (rowCondVal == condValueStr) {
+                myTable.rows.erase(myTable.rows.begin() + r);
+                r--; // Adjust index after removing a row
+                didDelete = true;
+            }
+        }
+    }
+
+    // Show results
+    if (didDelete) {
+        cout << "Rows deleted. Remaining table:\n";
+        for (int i = 0; i < myTable.rows.size(); i++) {
+            for (int j = 0; j < myTable.rows[i].size(); j++) {
+                cout << myTable.rows[i][j];
+                if (j != myTable.rows[i].size() - 1) cout << ", ";
+            }
+            cout << endl;
+        }
+    } else {
+        cout << "Nothing to delete\n";
+    }
+}
+
+// Function to count rows in a table
+int countRowsInTable(const string &dbName, const string &tableName) {
+    if (databases.find(dbName) == databases.end()) {
+        cout << "Database not found: " << dbName << endl;
+        return -1;
+    }
+    if (databases[dbName].tables.find(tableName) == databases[dbName].tables.end()) {
+        cout << "Table not found: " << tableName << endl;
+        return -1;
+    }
+    return databases[dbName].tables[tableName].rows.size();
+}
 
 // Function to create a new database if it does not already exist.
 void createDatabase(const string &dbName) {
     if (databases.find(dbName) != databases.end()) return; // Database already exists.
     databases[dbName] = {}; // Add a new empty database to the map.
 }
-
 
 // This function creates a new table in a database with the columns we give it.
 void createTable(const string &dbName, const string &tableName, const vector<Column> &columns) {
@@ -228,7 +368,6 @@ void createTable(const string &dbName, const string &tableName, const vector<Col
     // If the table doesn't exist, we create it by adding the table name, columns, and an empty list of rows.
     databases[dbName].tables[tableName] = {tableName, columns, {}}; // Now the table is ready to be used.
 }
-
 
 // This function adds a new row (set of data) to a table in a specific database.
 void insertIntoTable(const string &dbName, const string &tableName, const vector<string> &values) {
@@ -247,7 +386,6 @@ void insertIntoTable(const string &dbName, const string &tableName, const vector
     }
     // If the value count doesn't match the column count, nothing happens (we quietly ignore the row).
 }
-
 
 // This function shows the contents of a table on the screen and saves it to a file.
 void displayTable(const string &dbName, const string &tableName, ofstream &outputFile) {
@@ -278,70 +416,6 @@ void displayTable(const string &dbName, const string &tableName, ofstream &outpu
         outputFile << endl; // Do the same in the file.
     }
 }
-
-
-// This function removes rows from a table that match a specific condition.
-void deleteFromTable(const string &dbName, const string &tableName, const string &conditionCol, const string &conditionVal) {
-    // Check if the database exists. If it doesn't, stop here.
-    if (databases.find(dbName) == databases.end()) return;
-
-    // Check if the table exists in the database. If it doesn't, stop here.
-    if (databases[dbName].tables.find(tableName) == databases[dbName].tables.end()) return;
-
-    // Get a reference to the table we want to delete rows from.
-    Table &table = databases[dbName].tables[tableName];
-
-    // Find the index of the column where we want to check the condition.
-    auto conditionIt = find_if(table.columns.begin(), table.columns.end(), [&](const Column &col) {
-        return col.name == conditionCol; // Look for the column with the same name as the condition.
-    });
-
-    // If the column isn't found, stop because we can't delete rows based on a missing column.
-    if (conditionIt == table.columns.end()) return;
-
-    // Get the position (index) of the condition column in the table.
-    size_t conditionIdx = distance(table.columns.begin(), conditionIt);
-
-    bool deleted = false; // Keep track of whether we deleted any rows.
-    bool isIntegerCondition = false; // Check if the condition is an integer.
-
-    // Remove quotes from the condition value and check if it's an integer.
-    string conditionValStripped = stripQuotes(conditionVal, isIntegerCondition);
-
-    // Go through each row in the table and remove rows that match the condition.
-    table.rows.erase(remove_if(table.rows.begin(), table.rows.end(), [&](const vector<string> &row) {
-        // Get the value in the row at the condition column's index.
-        string rowConditionVal = stripQuotes(row[conditionIdx], isIntegerCondition);
-
-        if (isIntegerCondition) {
-            // Compare values as integers if the condition is a number.
-            if (stoi(rowConditionVal) == stoi(conditionValStripped)) {
-                deleted = true; // Mark that we deleted something.
-                return true; // Remove this row.
-            }
-        } else {
-            // Compare values as strings if the condition is not a number.
-            if (rowConditionVal == conditionValStripped) {
-                deleted = true; // Mark that we deleted something.
-                return true; // Remove this row.
-            }
-        }
-        return false; // Keep this row if it doesn't match the condition.
-    }), table.rows.end());
-
-    // After deleting rows, print the updated table or say no rows matched.
-    if (deleted) {
-        // Show the table after deletion.
-        cout << "> Table after deletion:" << endl;
-        for (const auto &row : table.rows) {
-            printRow(row); // Print each row left in the table.
-        }
-    } else {
-        // If no rows matched the condition, let the user know.
-        cout << "> No rows matched the condition for deletion.\n";
-    }
-}
-
 
 // This function saves the data from a table into a CSV file (a format that looks like a spreadsheet).
 void exportTableToCSV(const string &dbName, const string &tableName, const string &csvFileName) {
@@ -388,193 +462,118 @@ void exportTableToCSV(const string &dbName, const string &tableName, const strin
 // - UPDATE
 // - DELETE
 void processCommand(const string &command, ofstream &outputFile) {
-    // First, clean up the command by removing extra spaces from the beginning and end.
-    string trimmedCmd = trim(command); 
+    string cmd = trim(command); // Remove extra spaces
+    cout << "> " << cmd << endl; // Show the command on the screen
 
-    // If the command starts with "CREATE " and mentions a ".txt" file, we just ignore it.
-    // This program doesn't handle creating non-table files like this.
-    if (trimmedCmd.find("CREATE ") == 0 && trimmedCmd.find(".txt;") != string::npos) {
-        cout << "CREATE command is not implemented for non-table objects." << endl;
-        return; // Stop here because we don’t do anything with it.
-    }
+    if (cmd.find("CREATE TABLE") == 0) {
+        // Extract table name and columns
+        int start = cmd.find('(');
+        int end = cmd.find(')');
+        string tableName = trim(cmd.substr(13, start - 13));
+        string columnsStr = cmd.substr(start + 1, end - start - 1);
 
-    // If the command starts with "CREATE TABLE," it's asking us to create a new table.
-    if (trimmedCmd.find("CREATE TABLE") == 0) {
-        cout << "> " << trimmedCmd << endl; // Show the command on the screen.
-
-        // Find the part where the columns of the table are listed inside parentheses.
-        size_t start = trimmedCmd.find('(') + 1; // Start of the column definitions.
-        size_t end = trimmedCmd.find(')'); // End of the column definitions.
-
-        // Get the table name. It's between "CREATE TABLE" and the parentheses.
-        string tableName = trimmedCmd.substr(13, start - 14); 
-
-        // Get the list of columns as one long string.
-        string columnsStr = trimmedCmd.substr(start, end - start);
-
-        // Use a string stream to break the columns list into individual column definitions.
+        // Parse columns
+        vector<Column> columns;
         stringstream colStream(columnsStr);
-        vector<Column> columns; // This will store the column info.
         string col;
-
-        // Go through each column definition (like "id INT" or "name TEXT").
         while (getline(colStream, col, ',')) {
-            stringstream colSS(trim(col)); // Clean up each column definition.
+            stringstream colSS(trim(col));
             string name, type;
-            colSS >> name >> type; // Split it into the column name and type.
-            columns.push_back({name, type}); // Add it to the columns list.
+            colSS >> name >> type;
+            columns.push_back({name, type});
         }
 
-        // Now, create the table in the default database using these columns.
-        createTable("default_db", trim(tableName), columns);
+        createTable("default_db", tableName, columns);
     } 
-    // If the command starts with "INSERT INTO," it's adding a new row to a table.
-    else if (trimmedCmd.find("INSERT INTO") == 0) {
-        cout << "> " << trimmedCmd << endl; // Show the command on the screen.
+    else if (cmd.find("INSERT INTO") == 0) {
+        // Extract values
+        int start = cmd.find("VALUES (") + 8;
+        int end = cmd.find(')', start);
+        string valuesStr = cmd.substr(start, end - start);
 
-        // Find the part where the values are listed (after "VALUES (").
-        size_t start = trimmedCmd.find("VALUES (") + 8;
-        size_t end = trimmedCmd.find(')', start);
-
-        // Get the list of values as a string.
-        string valuesStr = trimmedCmd.substr(start, end - start);
-
-        // Use a string stream to break the values into individual pieces.
+        vector<string> values;
         stringstream valStream(valuesStr);
-        vector<string> values; // This will store the values for the row.
         string val;
-
-        // Go through each value, clean it up, and add it to the list.
         while (getline(valStream, val, ',')) {
-            values.push_back(trim(val)); 
+            values.push_back(trim(val));
         }
 
-        // Add the row to the "customer" table in the default database.
         insertIntoTable("default_db", "customer", values);
     } 
-    // If the command starts with "SELECT * FROM," it wants to show all rows in a table.
-    else if (trimmedCmd.find("SELECT * FROM") == 0) {
-        cout << "> " << trimmedCmd << endl; // Show the command on the screen.
-        // Display the table contents on the screen and write them to the output file.
+    else if (cmd.find("SELECT * FROM") == 0) {
         displayTable("default_db", "customer", outputFile);
     } 
-    // If the command starts with "UPDATE," it wants to change some rows in a table.
-    else if (trimmedCmd.find("UPDATE") == 0) {
-        cout << "> " << trimmedCmd << endl; // Show the command on the screen.
+    else if (cmd.find("UPDATE") == 0) {
+        // Extract table name, set clause, and where clause
+        int setPos = cmd.find("SET");
+        int wherePos = cmd.find("WHERE");
+        string tableName = trim(cmd.substr(7, setPos - 7));
+        string setPart = cmd.substr(setPos + 4, wherePos - setPos - 4);
+        string wherePart = cmd.substr(wherePos + 6);
 
-        // Find where the "SET" and "WHERE" parts of the command are.
-        size_t setIdx = trimmedCmd.find("SET");
-        size_t whereIdx = trimmedCmd.find("WHERE");
-
-        // Get the table name (it's between "UPDATE" and "SET").
-        string tableName = trimmedCmd.substr(7, setIdx - 7);
-        tableName = trim(tableName); 
-
-        // Get the part of the command that says what to update (like "name='John'").
-        string setPart = trimmedCmd.substr(setIdx + 4, whereIdx - setIdx - 4);
-
-        // Get the condition part (like "id=5").
-        string wherePart = trimmedCmd.substr(whereIdx + 6);
-
-        // Break the update part into the column and the new value.
         string updateCol = trim(setPart.substr(0, setPart.find('=')));
         string updateVal = trim(setPart.substr(setPart.find('=') + 1));
-
-        // Break the condition part into the column and the value to match.
         string conditionCol = trim(wherePart.substr(0, wherePart.find('=')));
         string conditionVal = trim(wherePart.substr(wherePart.find('=') + 1));
 
-        // Use the updateTable function to make the changes.
         updateTable("default_db", tableName, conditionCol, conditionVal, updateCol, updateVal);
     } 
-    // If the command starts with "DELETE FROM," it wants to remove rows from a table.
-    else if (trimmedCmd.find("DELETE FROM") == 0) {
-        cout << "> " << trimmedCmd << endl; // Show the command on the screen.
+    else if (cmd.find("SELECT COUNT(*) FROM") == 0) {
+        // Extract table name
+        string tableName = trim(cmd.substr(cmd.find("FROM") + 5));
 
-        // Find where the "WHERE" part starts.
-        size_t whereIdx = trimmedCmd.find("WHERE");
-
-        // Get the table name (it's after "DELETE FROM" and before "WHERE").
-        string tableName = trimmedCmd.substr(12, whereIdx - 12);
-
-        // Get the condition (like "id=5").
-        string condition = trimmedCmd.substr(whereIdx + 6);
-
-        // Break the condition into the column and value to match.
-        string conditionCol = trim(condition.substr(0, condition.find('=')));
-        string conditionVal = trim(condition.substr(condition.find('=') + 1));
-
-        // Use the deleteFromTable function to remove the rows.
-        deleteFromTable("default_db", trim(tableName), conditionCol, conditionVal);
+        int rowCount = countRowsInTable("default_db", "customer");
+        if (rowCount >= 0) {
+            cout << "Number of rows in table " << "customer" << ": " << rowCount << endl;
+            outputFile << "Number of rows in table " << "customer" << ": " << rowCount << endl;
+        } else {
+            cout << "Error counting rows for table: " << tableName << endl;
+        }
+    } 
+    else {
+        cout << "Unknown command: " << cmd << endl;
     }
 }
 
 void readFileInput(const string &inputFileName, string &outputFileName) {
-    // Open the input file containing commands
+    // Get the full path of the input file
+    string fullPath = getFullPath(inputFileName);
+    if (fullPath.empty()) {
+        cout << "Error: Could not resolve full path for input file: " << inputFileName << endl;
+        return;
+    }
+    cout << "Input file full path: " << fullPath << endl;
+
+    // Open the input file
     ifstream inputFile(inputFileName);
     if (!inputFile.is_open()) {
         cout << "Error: Could not open input file: " << inputFileName << endl;
         return;
     }
 
-    // Open the initial output file for writing results
-    ofstream outputFile(outputFileName, ios::out | ios::trunc); // Open in truncate mode to clear existing data
+    // Open the output file
+    ofstream outputFile(outputFileName, ios::out | ios::trunc);
     if (!outputFile.is_open()) {
         cout << "Error: Could not create output file: " << outputFileName << endl;
         return;
     }
 
-    string commandBuffer; // Buffer to hold complete commands
-    string line; // Current line being read from the input file
+    string commandBuffer;
+    string line;
 
     while (getline(inputFile, line)) {
-        line = trim(line); // Remove extra spaces
+        line = trim(line);  // Assuming 'trim' is a defined function
         if (!line.empty()) {
-            commandBuffer += line; // Accumulate command lines
-
-            // Check if the command ends with a semicolon (indicating end of the command)
+            commandBuffer += line;
             if (line.back() == ';') {
-                // If the command specifies a new output file...
-                if (commandBuffer.find("CREATE ") == 0 && commandBuffer.find(".txt;") != string::npos) {
-                    size_t start = commandBuffer.find(' ') + 1;
-                    size_t end = commandBuffer.find(';', start);
-                    string newFileName = trim(commandBuffer.substr(start, end - start));
-
-                    // If the new output file is different from the current one
-                    if (newFileName != outputFileName) {
-                        cout << "Switching output file to: " << newFileName << endl;
-
-                        // Close the current output file before opening a new one
-                        outputFile.close();
-
-                        // Update the output file name
-                        outputFileName = newFileName;
-
-                        // Open the new output file in truncate mode to ensure it starts fresh
-                        outputFile.open(outputFileName, ios::out | ios::trunc);
-                        if (!outputFile.is_open()) {
-                            cout << "Error: Could not create new output file: " << outputFileName << endl;
-                            return;
-                        }
-                    }
-                }
-
-                // Log the command execution to both the console and output file
                 cout << "Executing: " << commandBuffer << endl;
                 outputFile << "Executing: " << commandBuffer << endl;
-
-                // Process the command
-                processCommand(commandBuffer, outputFile);
-
-                // Clear the buffer for the next command
+                processCommand(commandBuffer, outputFile);  // Assuming 'processCommand' is defined
                 commandBuffer.clear();
             }
         }
     }
 
-    // Close both input and output files when done
     inputFile.close();
     outputFile.close();
 }
-
-
