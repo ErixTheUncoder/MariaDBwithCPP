@@ -143,14 +143,22 @@ int main() {
         return 1; // Exit the program with an error code.
     }
 
+    // Print the full path of the file
+    cout<<endl<<endl;
+    filesystem::path fuPath = filesystem::absolute(inputFileName);
+    cout<<"The path for the file is :"<<fuPath.string()<<endl<<endl;
+
     // Create a default database called "default_db".
     createDatabase("default_db");
 
     // Read the input file and update the output file name.
     readFileInput(inputFileName, outputFileName);
 
+    //Extract element name
+    Table t;
+
     // Export data from the "customer" table in "default_db" to a CSV file called "customer.csv".
-    exportTableToCSV("default_db", "customer", "customer.csv");
+    exportTableToCSV("default_db", t.name, "customer.csv");
 
     return 0; // The program finishes without errors.
 }
@@ -464,6 +472,7 @@ void exportTableToCSV(const string &dbName, const string &tableName, const strin
 void processCommand(const string &command, ofstream &outputFile) {
     string cmd = trim(command); // Remove extra spaces
     cout << "> " << cmd << endl; // Show the command on the screen
+    Table t;
 
     if (cmd.find("CREATE TABLE") == 0) {
         // Extract table name and columns
@@ -537,12 +546,12 @@ void processCommand(const string &command, ofstream &outputFile) {
 
 void readFileInput(const string &inputFileName, string &outputFileName) {
     // Get the full path of the input file
-    string fullPath = getFullPath(inputFileName);
-    if (fullPath.empty()) {
-        cout << "Error: Could not resolve full path for input file: " << inputFileName << endl;
-        return;
-    }
-    cout << "Input file full path: " << fullPath << endl;
+    // string fullPath = getFullPath(inputFileName);
+    // if (fullPath.empty()) {
+    //     cout << "Error: Could not resolve full path for input file: " << inputFileName << endl;
+    //     return;
+    // }
+    // cout << "Input file full path: " << fullPath << endl;
 
     // Open the input file
     ifstream inputFile(inputFileName);
