@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="26.0.8">
+  <diagram name="Page-1" id="4TJ8RpebCyfYO3ClwUTq">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-1" target="whWdKtzJHsvYRHMzsZdD-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="20" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-2" target="whWdKtzJHsvYRHMzsZdD-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-2" value="Declare &lt;code&gt;inputFileName&lt;/code&gt; (user-provided input file path) and &lt;code&gt;outputFileName&lt;/code&gt; (default set to &lt;code&gt;&quot;default.txt&quot;&lt;/code&gt;)." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="130" width="280" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-3" target="whWdKtzJHsvYRHMzsZdD-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-3" value="Display the prompt: &lt;code&gt;&quot;Enter the path of the input file: &quot;&lt;/code&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="-10" y="300" width="340" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-18" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-4" target="whWdKtzJHsvYRHMzsZdD-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-4" value="Attempt to open the input file with the provided path." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="35" y="440" width="290" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-5" target="whWdKtzJHsvYRHMzsZdD-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-17" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-5" target="whWdKtzJHsvYRHMzsZdD-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-5" value="If the input file cannot be opened, display an error message and terminate the program with an error code&amp;nbsp;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="630" width="250" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-6" target="whWdKtzJHsvYRHMzsZdD-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="550" y="1460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-6" value="&lt;strong&gt;Error Message:&lt;/strong&gt; &lt;code&gt;&quot;Error: Could not open file: &amp;lt;inputFileName&amp;gt;&quot;&lt;/code&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="390" y="712.5" width="310" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-8" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="720" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-9" target="whWdKtzJHsvYRHMzsZdD-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-9" value="Call &lt;code&gt;createDatabase(&quot;default_db&quot;)&lt;/code&gt; to initialize the default database." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="65" y="940" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-10" target="whWdKtzJHsvYRHMzsZdD-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-10" value="Call &lt;code&gt;readFileInput(inputFileName, outputFileName)&lt;/code&gt; to process the commands in the input file and potentially update the output file name." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="1080" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="whWdKtzJHsvYRHMzsZdD-11" target="whWdKtzJHsvYRHMzsZdD-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-11" value="Call &lt;code&gt;exportTableToCSV(&quot;default_db&quot;, &quot;customer&quot;, &quot;customer.csv&quot;)&lt;/code&gt; to export the &lt;code&gt;customer&lt;/code&gt; table to a CSV file." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="1260" width="360" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-12" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1420" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="whWdKtzJHsvYRHMzsZdD-22" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="190" y="868" width="40" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

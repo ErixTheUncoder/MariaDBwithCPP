@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0" version="26.0.8">
+  <diagram name="Page-1" id="0AoyQlV4iA5ATK3kRXEF">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2eRtb8IlOinP_wgzyfBv-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="py5k1xfX-xW01cu8yADL-2" target="2eRtb8IlOinP_wgzyfBv-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-2" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="315" y="-90" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="py5k1xfX-xW01cu8yADL-5" target="py5k1xfX-xW01cu8yADL-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="py5k1xfX-xW01cu8yADL-5" target="py5k1xfX-xW01cu8yADL-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="375" y="400" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="375" y="470" />
+              <mxPoint x="635" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-5" value="Check if &lt;code&gt;tableName&lt;/code&gt; exists in &lt;code&gt;databases[dbName].tables:&lt;/code&gt;&lt;div&gt;tableName in databases[dbName].tables?&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="160" width="310" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="py5k1xfX-xW01cu8yADL-7" target="py5k1xfX-xW01cu8yADL-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-7" value="Add &lt;code&gt;tableName&lt;/code&gt;, &lt;code&gt;columns&lt;/code&gt;, and empty rows to &lt;code&gt;databases[dbName].tables&lt;/code&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="545" y="350" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-8" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="565" y="220" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="py5k1xfX-xW01cu8yADL-11" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="565" y="510" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="2eRtb8IlOinP_wgzyfBv-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="2eRtb8IlOinP_wgzyfBv-1" target="py5k1xfX-xW01cu8yADL-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="2eRtb8IlOinP_wgzyfBv-1" value="Input &lt;code&gt;dbName&lt;/code&gt;, &lt;code&gt;tableName&lt;/code&gt;, &lt;code&gt;columns&lt;/code&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="40" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="2eRtb8IlOinP_wgzyfBv-4" value="True" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="364" y="375" width="50" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

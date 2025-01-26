@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0" version="26.0.8">
+  <diagram name="Page-1" id="_Ll74KX82-XYEojBiPu6">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-1" target="PRlaV0UyolCgUVnrmVj3-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="80" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-2" target="PRlaV0UyolCgUVnrmVj3-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-2" value="Input &lt;code&gt;tableName&lt;/code&gt; and &lt;code&gt;columnDefinitions&lt;/code&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="319" y="190" width="190" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-4" target="PRlaV0UyolCgUVnrmVj3-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-4" value="Create a new &lt;code&gt;Table&lt;/code&gt; object with &lt;code&gt;tableName&lt;/code&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="328" y="290" width="171" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-6" target="PRlaV0UyolCgUVnrmVj3-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-6" target="PRlaV0UyolCgUVnrmVj3-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="455" />
+              <mxPoint x="590" y="720" />
+              <mxPoint x="414" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-6" value="More columns to process?" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="344" y="390" width="140" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-8" target="PRlaV0UyolCgUVnrmVj3-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-8" value="Create a &lt;code&gt;Column&lt;/code&gt; object with &lt;code&gt;name&lt;/code&gt; and &lt;code&gt;type&lt;/code&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="339" y="552" width="150" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-13" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-10" target="PRlaV0UyolCgUVnrmVj3-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-10" value="&#xa;Add the &lt;code&gt;Column&lt;/code&gt; to &lt;code&gt;table.columns&lt;/code&gt;&#xa;&#xa;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="650" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-15" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="PRlaV0UyolCgUVnrmVj3-12" target="PRlaV0UyolCgUVnrmVj3-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-12" value="Return the &lt;code&gt;Table&lt;/code&gt; object" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="740" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-14" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="361" y="830" width="106" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-16" value="True" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="405" y="518" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PRlaV0UyolCgUVnrmVj3-18" value="False" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="495" y="428" width="50" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

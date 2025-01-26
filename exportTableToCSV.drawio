@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" version="26.0.8">
+  <diagram name="Page-1" id="tQ_eEIUN_IWpFy0Z_HYw">
+    <mxGraphModel dx="1195" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UkacPZiNakUPaSHF9N6z-8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-1" target="UkacPZiNakUPaSHF9N6z-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="100" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-2" target="UkacPZiNakUPaSHF9N6z-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-2" value="The function starts and receives &lt;code&gt;dbName&lt;/code&gt;, &lt;code&gt;tableName&lt;/code&gt;, and &lt;code&gt;csvFileName&lt;/code&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="240" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-3" target="UkacPZiNakUPaSHF9N6z-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-3" target="UkacPZiNakUPaSHF9N6z-28">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="620" y="455" />
+              <mxPoint x="620" y="2160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-3" value="&lt;strong&gt;Check if Database Exists&lt;/strong&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="380" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-4" target="UkacPZiNakUPaSHF9N6z-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-4" value="Proceed to check if the table exists." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="590" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-20" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-9" target="UkacPZiNakUPaSHF9N6z-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="620" y="805" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-9" value=". &lt;strong&gt;Check if Table Exists in Database&lt;/strong&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="730" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-10" target="UkacPZiNakUPaSHF9N6z-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-10" value="Proceed to get the table reference." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="940" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-11" target="UkacPZiNakUPaSHF9N6z-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-11" value="Retrieve the table object using &lt;code&gt;databases[dbName].tables[tableName]&lt;/code&gt;." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="1050" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-23" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-12" target="UkacPZiNakUPaSHF9N6z-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-12" value="Attempt to open the file specified by &lt;code&gt;csvFileName&lt;/code&gt;." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="250" y="1180" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-24" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-13" target="UkacPZiNakUPaSHF9N6z-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="620" y="1385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-13" value="Check if CSV File Opened Successfully" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="1310" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-14" target="UkacPZiNakUPaSHF9N6z-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-14" value="Proceed to write column headers." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="1520" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-15" target="UkacPZiNakUPaSHF9N6z-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-15" value="&amp;nbsp;Write all column names from &lt;code&gt;table.columns&lt;/code&gt; to the CSV file, separated by commas, and end the row with a newline." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="1650" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-16" target="UkacPZiNakUPaSHF9N6z-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-16" value="Write Rows of Data&lt;div&gt;For each row in &lt;code&gt;table.rows&lt;/code&gt;:&lt;ul&gt;&lt;li&gt;Write each value separated by commas.&lt;/li&gt;&lt;li&gt;End each row with a newline.&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1780" width="260" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="UkacPZiNakUPaSHF9N6z-17" target="UkacPZiNakUPaSHF9N6z-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-17" value="Close the file after all data has been written." style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="1980" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-28" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="2120" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-34" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="470" y="430" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-36" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="470" y="430" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-37" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="470" y="770" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-38" value="No" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1350" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-39" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="520" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-40" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="870" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="UkacPZiNakUPaSHF9N6z-41" value="Yes" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="410" y="1450" width="40" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

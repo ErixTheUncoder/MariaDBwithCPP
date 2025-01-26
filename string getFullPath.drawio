@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 OPR/115.0.0.0" version="26.0.8">
+  <diagram name="Page-1" id="ohotMGofzef_-I2rl1DA">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-1" target="vHl_OOQ3XefbRbrMmUwf-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-1" value="Start" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="90" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-2" target="vHl_OOQ3XefbRbrMmUwf-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-2" value="Input inputFileName" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="334" y="220" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-4" target="vHl_OOQ3XefbRbrMmUwf-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-4" target="vHl_OOQ3XefbRbrMmUwf-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-4" value="&lt;br&gt;&lt;br&gt;&lt;div&gt;Is platform Windows (_WIN32)?&lt;br&gt;&lt;br&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="339" y="340" width="150" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-6" target="vHl_OOQ3XefbRbrMmUwf-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="414" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-6" value="Resolve Path on Windows:&lt;div&gt;Call _fullpath(fullPath, inputFileName, sizeof(fullPath))&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="314" y="505" width="200" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-8" target="vHl_OOQ3XefbRbrMmUwf-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="675" y="620" />
+              <mxPoint x="414" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-8" value="Resolve Path on Unix/Linux:&lt;div&gt;Call realpath(inputFileName, fullPath)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="507.5" width="210" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-10" value="True" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="405" y="468" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-11" value="False" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="535" y="370" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-14" target="vHl_OOQ3XefbRbrMmUwf-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-14" target="vHl_OOQ3XefbRbrMmUwf-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-14" value="&lt;h3&gt;&lt;span style=&quot;font-weight: normal;&quot;&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Check if Path Resolution Succeeded:&lt;/font&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h3&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-size: 12px; font-weight: normal;&quot;&gt;Path resolution succeeded?&lt;/span&gt;&lt;/h3&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="282" y="650" width="264" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-15" target="vHl_OOQ3XefbRbrMmUwf-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-15" value="Return fullPath as string" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="334" y="890" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vHl_OOQ3XefbRbrMmUwf-17" target="vHl_OOQ3XefbRbrMmUwf-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-17" value="Print &lt;code&gt;&quot;Return empty string&quot;&lt;/code&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="890" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-19" value="False" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="570" y="718" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-20" value="True" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="405" y="848" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vHl_OOQ3XefbRbrMmUwf-21" value="End" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="1060" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
