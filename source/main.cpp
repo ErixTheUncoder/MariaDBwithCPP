@@ -1,5 +1,5 @@
 // *********************************************************
-// Program: T10L_G9_A1.cpp
+// Program: T10L_G6_A2.cpp
 // Course: CCP6114 Programming Fundamentals
 // Lecture Class: TC5L
 // Tutorial Class: T10L
@@ -121,6 +121,7 @@ void readFileInput(const string &inputFileName, string &outputFileName);
 int countRowsInTable(const string &dbName, const string &tableName);
 
 string trim(const string &str);
+string tableName;
 
 int main() {
     string inputFileName;
@@ -145,7 +146,7 @@ int main() {
     readFileInput(inputFileName, outputFileName);
 
     // Export data from the "customer" table in "default_db" to a CSV file called "customer.csv".
-    exportTableToCSV("default_db", "customer", "customer.csv");
+    exportTableToCSV("default_db", tableName, "customer.csv");
 
     return 0; // The program finishes without errors.
 }
@@ -340,11 +341,14 @@ int countRowsInTable(const string &dbName, const string &tableName) {
         cout << "Database not found: " << dbName << endl;
         return -1;
     }
-    if (databases[dbName].tables.find(tableName) == databases[dbName].tables.end()) {
-        cout << "Table not found: " << tableName << endl;
+
+    string trimmedTableName = trim(tableName); // Ensure tableName is trimmed
+    if (databases[dbName].tables.find(trimmedTableName) == databases[dbName].tables.end()) {
+        cout << "Table not found: " << trimmedTableName << endl;
         return -1;
     }
-    return databases[dbName].tables[tableName].rows.size();
+
+    return databases[dbName].tables[trimmedTableName].rows.size();
 }
 
 // Function to create a new database if it does not already exist.
@@ -457,7 +461,6 @@ void exportTableToCSV(const string &dbName, const string &tableName, const strin
 void processCommand(const string &cmd, string &outputFileName, ofstream &outputFile) {
     string trimmedCmd = trim(cmd); // Remove extra spaces around the command
     cout << "> " << trimmedCmd << endl;
-
 // Switch output file if CREATE command is found with a .txt; suffix
     if (trimmedCmd.find("CREATE ") == 0 && trimmedCmd.find(".txt;") != string::npos) {
         size_t start = trimmedCmd.find(' ') + 1;
@@ -488,7 +491,7 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
         // Handle CREATE TABLE commands
         size_t start = trimmedCmd.find('(');
         size_t end = trimmedCmd.find(')');
-        string tableName = trim(trimmedCmd.substr(13, start - 13));
+        tableName = trim(trimmedCmd.substr(13, start - 13));
         string columnsStr = trimmedCmd.substr(start + 1, end - start - 1);
 
         // Parse columns
@@ -516,16 +519,16 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
             values.push_back(trim(val));
         }
 
-        insertIntoTable("default_db", "customer", values);
+        insertIntoTable("default_db", tableName, values);
     } else if (trimmedCmd.find("SELECT * FROM") == 0) {
         // Handle SELECT * FROM commands
-        displayTable("default_db", "customer", outputFile);
+        displayTable("default_db", tableName, outputFile);
 		
     } else if (trimmedCmd.find("UPDATE") == 0) {
         // Handle UPDATE commands
         size_t setPos = trimmedCmd.find("SET");
         size_t wherePos = trimmedCmd.find("WHERE");
-        string tableName = trim(trimmedCmd.substr(7, setPos - 7));
+        tableName = trim(trimmedCmd.substr(7, setPos - 7));
         string setPart = trimmedCmd.substr(setPos + 4, wherePos - setPos - 4);
         string wherePart = trimmedCmd.substr(wherePos + 6);
 
@@ -538,7 +541,7 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
     } else if (trimmedCmd.find("DELETE FROM") == 0) {
         // Handle DELETE FROM commands
         size_t wherePos = trimmedCmd.find("WHERE");
-        string tableName = trim(trimmedCmd.substr(12, wherePos - 12));
+        tableName = trim(trimmedCmd.substr(12, wherePos - 12));
         string conditionStr = trimmedCmd.substr(wherePos + 6);
 
         string conditionCol = trim(conditionStr.substr(0, conditionStr.find('=')));
@@ -566,11 +569,8 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
             cout << table.first << endl;
             outputFile << table.first << endl;
         }
-	}	else if (cmd.find("SELECT COUNT(*) FROM") == 0) {
-        // Extract table name
-        string tableName = trim(cmd.substr(cmd.find("FROM") + 5));
-
-        int rowCount = countRowsInTable("default_db", "customer");
+	}else if (cmd.find("SELECT COUNT(*) FROM") == 0) {
+        int rowCount = countRowsInTable("default_db", tableName);
         if (rowCount >= 0) {
             cout << "Number of rows in table " << "customer" << ": " << rowCount << endl;
             outputFile << "Number of rows in table " << "customer" << ": " << rowCount << endl;
@@ -582,19 +582,18 @@ void processCommand(const string &cmd, string &outputFileName, ofstream &outputF
     }
 }
 
-
 void readFileInput(const string &inputFileName, string &outputFileName) {
     string fullPath = getFullPath(inputFileName);
     if (fullPath.empty()) {
-        cout << "Error: Could not get the full path for the input file: " << inputFileName << endl;
+        cout << "Error: Could not get the full path for the input file: " << inputFileName << endl; //error handling if statement Q7
         return;
     }
     cout << "Full path of input file: " << fullPath << endl;
 	
 	// Open the input file containing commands
     ifstream inputFile(inputFileName);
-    if (!inputFile.is_open()) {
-        cout << "Error: Could not open input file: " << inputFileName << endl;
+    if (!inputFile.is_open()) {  ////error handling if statement Q7
+        cout << "Error: Could not open input file: " << inputFileName << endl; 
         return;
     }
     // Open the initial output file for writing results
@@ -628,4 +627,3 @@ void readFileInput(const string &inputFileName, string &outputFileName) {
     inputFile.close();
     outputFile.close();
 }
-
